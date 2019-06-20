@@ -100,7 +100,7 @@ RSpec.configure do |config|
   #   Kernel.srand config.seed
 
   ENV['RACK_ENV'] ||= 'test'
-  
+
   require 'factory_bot'
   config.include FactoryBot::Syntax::Methods
 
