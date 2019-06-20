@@ -10,6 +10,7 @@ gem 'rubocop'
 gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sqlite3'
+gem "bcrypt"
 
 group 'test' do
   gem 'database_cleaner'
