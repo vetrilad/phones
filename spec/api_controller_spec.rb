@@ -1,35 +1,50 @@
 # frozen_string_literal: true
 
-require_relative '../lib/api_controller'
-
 describe MyTelecom::ApiController do
   include Rack::Test::Methods
 
-  let(:app) do
-    MyTelecom::ApiController
-  end
+  let(:app) { described_class }
 
-  it 'gets the inflation' do
+  it 'requires authentication' do
     post '/'
 
-    response = JSON.parse(last_response.body, symbolize_names: true)
-
-    expect(response).to eq(allocated_number: '1111111111')
+    expect(last_response.status).to eq 401
   end
 
-  it 'get customer number' do
-    post '/9999999993'
+  describe 'authenticated user' do
+    before do
+      user = create(:user, password: 'test')
+      env 'rack.session', user_id: user.id
+    end
 
-    response = JSON.parse(last_response.body, symbolize_names: true)
+    it 'gets the first number' do
+      post '/'
 
-    expect(response).to eq(allocated_number: '9999999993')
-  end
+      response = JSON.parse(last_response.body, symbolize_names: true)
 
-  it 'get number when custom number taken' do
-    post '/9999999993'
+      expect(response).to eq(allocated_number: '111-111-1111')
+    end
 
-    response = JSON.parse(last_response.body, symbolize_names: true)
+    it 'get customer number' do
+      post '/999-999-9993'
 
-    expect(response).to eq(allocated_number: '9999999993')
+      response = JSON.parse(last_response.body, symbolize_names: true)
+
+      expect(response).to eq(allocated_number: '999-999-9993')
+    end
+
+    it 'get number when custom number taken' do
+      post '/999-999-9993'
+
+      response = JSON.parse(last_response.body, symbolize_names: true)
+
+      expect(response).to eq(allocated_number: '999-999-9993')
+    end
+
+    it 'halts when number is not valid' do
+      post '/999-999-999333'
+
+      expect(last_response.status).to eq(500)
+    end
   end
 end

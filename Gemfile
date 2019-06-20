@@ -4,13 +4,12 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'pg'
+gem 'bcrypt'
 gem 'rake'
 gem 'rubocop'
 gem 'sinatra'
 gem 'sinatra-activerecord'
 gem 'sqlite3'
-gem "bcrypt"
 
 group 'test' do
   gem 'database_cleaner'

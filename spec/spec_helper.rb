@@ -98,28 +98,32 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
-
   ENV['RACK_ENV'] ||= 'test'
 
+  require 'rack/test'
   require 'factory_bot'
+  require_relative '../lib/api_controller'
+  require_relative '../models/user'
+  require_relative '../lib/list_operator'
+
+  require_relative '../lib/authentication_controller'
+  require_relative '../models/user'
+
+  require 'database_cleaner'
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
   config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
     FactoryBot.find_definitions
   end
 
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  require 'rack/test'
-  require_relative '../lib/api_controller'
-
-  require 'database_cleaner'
-
   DatabaseCleaner.strategy = :truncation
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
 end
