@@ -23,7 +23,7 @@ Install dependancies
 
 `bundle install`
 
-Create database
+Setup database
 
 `RACK_ENV=development rake db:setup`
 
@@ -33,7 +33,7 @@ Run
 
 ### Example api calls:
 
-Create Request
+Create user Request
 ```
 curl --cookie-jar - -d "username=admin&admin@engineer.ai&password=admin" -X POST http://localhost:9292/create_user
 ```
