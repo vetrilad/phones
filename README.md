@@ -35,7 +35,8 @@ Run
 
 Create user Request
 ```
-curl --cookie-jar - -d "username=admin&admin@engineer.ai&password=admin" -X POST http://localhost:9292/create_user
+curl --cookie-jar - -d "username=admin&admin@engineer.ai&password=admin" \
+-X POST http://localhost:9292/create_user
 ```
 Response
 ```
@@ -45,7 +46,8 @@ Response
 
 Obtain session Request
 ```
-curl --cookie-jar -  -d "username=admin&password=admin" -X POST http://localhost:9292/sign_in
+curl --cookie-jar -  -d "username=admin&password=admin" -X \ 
+POST http://localhost:9292/sign_in
 ```
 Response
 ```
@@ -67,7 +69,12 @@ Response
 
 Get custom number Request
 ```
-curl -v -d "" -b "rack.session=BAh7B0kiDHVzZXJfaWQGOgZFRmkGSSIPc2Vzc2lvbl9pZAY7AFRJIkViM2Jl%0AY2VhMTg5MDkxNzI4NzEzZDAzODAwNDExMTRhN2U1NzZmYzBmYWI2ZmJmZGI0%0AYzY3MjkwMTVkMjQ4MjAzBjsARg%3D%3D%0A--77505ef89ceb1f9dc2f08166eee13308d9e8010b" -X POST http://localhost:9292/8987659876
+curl -v -d "" -b "rack.session=BAh7B0kiDHVzZXJfaWQGOgZF \ 
+RmkGSSIPc2Vzc2lvbl9pZAY7AFRJIkViM2Jl%0AY2VhMTg5MDkxNzI4 \ 
+NzEzZ DAzODAwNDExMTRhN2U1NzZmYzBmYWI2ZmJmZGI0% 0AYzY3M \ 
+jkwMTVkMjQ4MjAzB jsARg%3D%3D%0A--77505ef89ceb1f9dc2f081 \ 
+66eee13308d9e8010b" \ 
+-X POST http://localhost:9292/8987659876
 ```
 
 Response
